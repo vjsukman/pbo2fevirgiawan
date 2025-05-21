@@ -1,7 +1,14 @@
-import { NavLink } from 'react-router-dom';
+import { NavLink } from "react-router-dom";
 import {
-  Home, List, Folder, Users, BarChart,
-  HelpCircle, MapPin, Settings, BookUser
+  Home,
+  List,
+  Folder,
+  Users,
+  BarChart,
+  HelpCircle,
+  MapPin,
+  Settings,
+  BookUser,
 } from "lucide-react";
 
 const perkuliahan = [
@@ -20,6 +27,7 @@ const lainnya = [
 
 const dataMaster = [
   { label: "Mahasiswa", icon: BookUser, path: "/mahasiswa" },
+  { label: "Matakuliah", icon: BookUser, path: "/matakuliah" },
 ];
 
 function renderMenu(menu: typeof perkuliahan) {
@@ -30,8 +38,8 @@ function renderMenu(menu: typeof perkuliahan) {
       className={({ isActive }) =>
         `flex items-center gap-2 px-4 py-2 rounded transition-all ${
           isActive
-            ? 'bg-orange-400 text-black font-semibold shadow-md'
-            : 'hover:bg-indigo-700'
+            ? "bg-orange-400 text-black font-semibold shadow-md"
+            : "hover:bg-indigo-700"
         }`
       }
     >
@@ -49,7 +57,9 @@ export default function Sidebar() {
 
         <div className="space-y-6">
           <div>
-            <p className="text-sm uppercase text-indigo-300 mb-2">Perkuliahan</p>
+            <p className="text-sm uppercase text-indigo-300 mb-2">
+              Perkuliahan
+            </p>
             <nav className="space-y-2">{renderMenu(perkuliahan)}</nav>
           </div>
 
@@ -59,7 +69,9 @@ export default function Sidebar() {
           </div>
 
           <div>
-            <p className="text-sm uppercase text-indigo-300 mb-2">Data Master</p>
+            <p className="text-sm uppercase text-indigo-300 mb-2">
+              Data Master
+            </p>
             <nav className="space-y-2">{renderMenu(dataMaster)}</nav>
           </div>
         </div>

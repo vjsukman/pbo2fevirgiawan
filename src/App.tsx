@@ -9,6 +9,9 @@ import Dashboard from "./pages/Dashboard";
 import MahasiswaLayout from "@/pages/Mahasiswa";
 import MahasiswaList from "@/pages/Mahasiswa/MahasiswaList";
 import MahasiswaForm from "@/pages/Mahasiswa/MahasiswaForm";
+import MatakuliahLayout from "@/pages/Matakuliah";
+import MatakuliahList from "@/pages/Matakuliah/MatakuliahList";
+import MatakuliahForm from "@/pages/Matakuliah/MatakuliahForm";
 
 function App() {
   return (
@@ -20,6 +23,11 @@ function App() {
           <Route path="/mahasiswa" element={<MahasiswaLayout />}>
             <Route index element={<MahasiswaList />} />
             <Route path="new" element={<MahasiswaForm />} />
+          </Route>
+          <Route path="/matakuliah" element={<MatakuliahLayout />}>
+            <Route index element={<MatakuliahList />} />
+            <Route path="new" element={<MatakuliahForm />} />
+            <Route path="edit/:kode" element={<MatakuliahForm />} />
           </Route>
         </Routes>
       </MainLayout>
