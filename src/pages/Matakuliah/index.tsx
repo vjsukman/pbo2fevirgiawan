@@ -13,12 +13,6 @@ export default function MatakuliahLayout() {
         >
           ➕ Matakuliah Baru
         </button>
-        <button
-          onClick={() => navigate("/matakuliah/edit/:id")}
-          className="bg-indigo-600 text-white px-4 py-2 rounded shadow"
-        >
-          Edit Matakuliah
-        </button>
       </div>
 
       {/* Halaman yang di-nest akan ditampilkan di sini */}

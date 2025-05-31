@@ -1,7 +1,13 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { createMatakuliah } from "@/services/api";
+import {
+  createMatakuliah,
+  getMatakuliahByKode,
+  updateMatakuliah,
+} from "@/services/api";
 import type { MatakuliahType } from "@/types/Matakuliah";
+import { useParams } from "react-router-dom";
+import { useEffect } from "react";
 
 const initialForm: MatakuliahType = {
   kode: "",
@@ -15,6 +21,25 @@ export default function MatakuliahForm() {
   const [form, setForm] = useState<MatakuliahType>(initialForm);
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
+  const { kode } = useParams();
+
+  useEffect(() => {
+    const fetchMatakuliah = async () => {
+      if (kode) {
+        setLoading(true);
+        try {
+          const data = await getMatakuliahByKode(kode);
+          setForm(data.data as MatakuliahType);
+        } catch (err) {
+          alert("Gagal menyimpan data Matakuliah");
+          console.log(err);
+        } finally {
+          setLoading(false);
+        }
+      }
+    };
+    fetchMatakuliah();
+  }, [kode]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
     const { name, value } = e.target;
@@ -22,7 +47,7 @@ export default function MatakuliahForm() {
       (prev) =>
         ({
           ...prev,
-          [name]: name === "semester" ? parseInt(value) : value,
+          [name]: name === "sks" ? parseInt(value) : value,
         } as MatakuliahType)
     );
   };
@@ -31,7 +56,13 @@ export default function MatakuliahForm() {
     e.preventDefault();
     setLoading(true);
     try {
-      await createMatakuliah(form);
+      if (kode) {
+        // Update existing Matakuliah
+        await updateMatakuliah(kode, form);
+      } else {
+        // Create new Matakuliah
+        await createMatakuliah(form);
+      }
       navigate("/matakuliah");
     } catch (err) {
       alert("Gagal menyimpan data Matakuliah");
@@ -101,7 +132,7 @@ export default function MatakuliahForm() {
           <label className="block text-sm font-medium mb-1">Jurusan</label>
           <input
             name="jurusan"
-            type="jurusan"
+            type="text"
             value={form.jurusan}
             onChange={handleChange}
             required
